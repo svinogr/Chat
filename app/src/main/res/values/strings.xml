@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Chat3</string>
+    <string name="create_account">Создать</string>
+    <string name="enter_to_account">Войти</string>
+    <string name="auth_failed">регистрация не прошла</string>
+    <string name="not_allowed_data">неправильные данные</string>
+    <string name="textSend">отправить</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="sign_in">Войти</string>
+    <string name="sign_out">Выйти</string>
+    <string name="verify_email">Verify</string>
+    <string name="exit">exit</string>
+    <string name="online">online</string>
+    <string name="verify_send">Отправлено письмо на</string>
+    <string name="verify_not_sand">Невозможно произвести верификацию</string>
+    <string name="access_to_chat_deny">необходимо войти</string>
+    <string name="vallid_need_email">необходим email</string>
+    <string name="vallid_need_pass">пароль мин 6 символов</string>
+    <string name="hint_name">введите имя</string>
+    <string name="save_name_btn_title">сохранить</string>
+    <string name="title_chat">Chat</string>
+    <string name="title_general">VerySimpleChat</string>
+    <string name="title_online">Online users</string>
+</resources>

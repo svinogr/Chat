@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="online_userText_marginTop">20dp</dimen>
+</resources>
