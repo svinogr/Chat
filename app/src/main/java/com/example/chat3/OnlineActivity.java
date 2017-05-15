@@ -38,7 +38,7 @@ public class OnlineActivity extends AppCompatActivity {
             protected void populateView(View v, User user, int position) {
                 TextView userName;
                 userName = (TextView) v.findViewById(R.id.user_online_item);
-                userName.setText(user.getEmail());
+                userName.setText(user.getName());
             }
         };
         listUser.setAdapter(mFirebaseListAdapter);

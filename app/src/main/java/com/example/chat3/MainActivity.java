@@ -12,12 +12,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -59,22 +59,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (currentUser != null)
             updateUI(currentUser);
 
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
+        /*mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                            .setDisplayName(user.getEmail()).build();
+                                .setDisplayName(user.getEmail()).build();
                     user.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
 
-                        }
+                            }
                     });
                 }
             }
-        };
+        };*/
     }
 
     @Override
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onStart();
         FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
         updateUI(currentUser);
-        mFirebaseAuth.addAuthStateListener(mAuthListener);
+       // mFirebaseAuth.addAuthStateListener(mAuthListener);
     }
 
     @Override

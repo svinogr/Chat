@@ -15,10 +15,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 public class ChatActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final int GET_NAME_CODE = 1;
     FirebaseAuth mFirebaseAuth;
     FirebaseDatabase mFirebaseDatabase;
     Query refMessages;
@@ -60,18 +62,21 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             }
         };
         listChatView.setAdapter(mFirebaseListAdapter);
+        if (mFirebaseAuth.getCurrentUser().getDisplayName() == null) {
+            setName();
+        }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        mFirebaseDatabase.getReference().child("user/" + mFirebaseAuth.getCurrentUser().getUid()).setValue(new User(mFirebaseAuth.getCurrentUser().getDisplayName()));
+        createUserOnlineDB();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        mFirebaseDatabase.getReference().child("user/" + mFirebaseAuth.getCurrentUser().getUid()).removeValue();
+        deleteUserOnlineFromDB();
     }
 
     @Override
@@ -85,7 +90,12 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 if (!bodyMessage.equals("")) {
                     Message message = new Message();
                     message.setBodyMessage(bodyMessage);
-                    if (mFirebaseAuth.getCurrentUser() != null) {
+                    FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
+                    if (currentUser != null) {
+                        if (currentUser.getDisplayName() == null) {
+                            setName();
+                            return;
+                        }
                         message.setName(mFirebaseAuth.getCurrentUser().getDisplayName());
                     }
                     mFirebaseDatabase.getReference().child("message").push().setValue(message);
@@ -115,5 +125,33 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if (resultCode == -1) {
+                createUserOnlineDB();
+            }
+        }
+    }
+
+    void setName() {
+        Intent intent = new Intent(this, NameActivity.class);
+        startActivityForResult(intent, GET_NAME_CODE);
+    }
+
+    void createUserOnlineDB() {
+        FirebaseUser user = mFirebaseAuth.getCurrentUser();
+        if (user.getDisplayName() != null) {
+            mFirebaseDatabase.getReference().child("user/" + user.getUid()).setValue(new User(user.getDisplayName()));
+        }
+    }
+
+    void deleteUserOnlineFromDB() {
+        FirebaseUser user = mFirebaseAuth.getCurrentUser();
+        if (user.getDisplayName() != null) {
+            mFirebaseDatabase.getReference().child("user/" + mFirebaseAuth.getCurrentUser().getUid()).removeValue();
+        }
     }
 }
