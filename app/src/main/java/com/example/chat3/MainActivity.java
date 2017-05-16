@@ -58,23 +58,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
         if (currentUser != null)
             updateUI(currentUser);
-
-        /*mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                .setDisplayName(user.getEmail()).build();
-                    user.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-
-                            }
-                    });
-                }
-            }
-        };*/
     }
 
     @Override
@@ -82,8 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onStart();
         FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
         updateUI(currentUser);
-       // mFirebaseAuth.addAuthStateListener(mAuthListener);
-    }
+        }
 
     @Override
     public void onClick(View v) {
